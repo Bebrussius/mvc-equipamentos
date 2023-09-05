@@ -1,0 +1,8 @@
+.box-header-equipamento{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ola{
+    color: aquamarine;
+}

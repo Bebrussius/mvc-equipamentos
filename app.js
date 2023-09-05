@@ -9,6 +9,20 @@ const path = require('path')
 const usuario = require('./controllers/usuariocontroller')
 const equipamento = require('./controllers/equipamentocontroller')
 const app = express()
+const usuarioControllerCadastro = require("./controllers/usuarioControllerCadastro")
+
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, 'public', 'uploads'),
+  filename: (req, file, cb)=>{
+    const extrairNome = path.extname(file.originalname);
+    const filename = `${Date.now()}${extrairNome}`;
+    cb(null, filename);
+  }
+});
+const upload = multer({
+  storage: storage
+});
 // }}}
 //-------------------------------------------------------------------------------------------------
 // Sessão
@@ -25,6 +39,14 @@ app.use((req,res,next) => {
   res.locals.error_msg = req.flash('error_msg')
   next()
 })
+//function requireAuth(req, res, next){
+//  if(req.session.nome){
+//    next();
+//  } 
+//  else{
+//    res.redirect('/login'); 
+//  }
+//}
 //-------------------------------------------------------------------------------------------------  
 // Body Parser
 app.use(bodyParser.urlencoded({extended:true}))
@@ -45,21 +67,25 @@ app.set('view engine','handlebars')
 //-------------------------------------------------------------------------------------------------  
 // Caminho bootstrap
 app.use(express.static(path.join(__dirname,'views/layouts/bootstrap')))
+app.use(express.static(path.join(__dirname,'public')));
 // }}}
 //-------------------------------------------------------------------------------------------------
 // Rotas {{{
 app.get('/',(req,res) => {
   res.render('home')
 })
+app.get('/cadastro',(req,res) => {
+  res.render('cadastro')
+})
 //  
-app.use('/usuarioroutes',usuario) // prefixo para rotas de usuario
+app.use('/usuarioroutes',usuario), // prefixo para rotas de usuario
 app.use('/equipamentoroutes',equipamento) // prefixo para rotas de equipamento
 //}}}
 //-------------------------------------------------------------------------------------------------
 // Servidor {{{
 const PORT = 3000
 app.listen(PORT,() => {
-  console.log('Servidor rodando!')
+  console.log('Servidor rodando! Porta 3000')
 });
 //}}}
 //-------------------------------------------------------------------------------------------------

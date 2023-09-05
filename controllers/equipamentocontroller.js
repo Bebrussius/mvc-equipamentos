@@ -22,17 +22,34 @@ router.post('/incluirroute',(req,res) => {
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
     erros.push({texto:'Nome inválido!'})
   }
+  if (!req.body.descricao || typeof req.body.descricao == undefined || req.body.descricao == null) {
+    erros.push({texto:'Descricao inválida!'})
+  }
+  if (!req.body.codigo || typeof req.body.codigo == undefined || req.body.codigo == null) {
+    erros.push({texto:'Código inválido!'})
+  }
+  if (!req.body.numeroserie || typeof req.body.numeroserie == undefined || req.body.numeroserie == null) {
+    erros.push({texto:'Numero de série inválido!'})
+  }
+  if (!req.body.imagem || typeof req.body.imagem == undefined || req.body.imagem == null) {
+    erros.push({texto:'Imagem inválida!'})
+  }
+  console.log("lknlknlknlkn")
   if (erros.length > 0) {
     res.render('equipamentoviews/inclusaoview',{erros:erros})
   } else {
     Equipamento.create({
-      nome:req.body.nome
+      nome:req.body.nome,
+      descricao:req.body.descricao,
+      codigo:req.body.codigo,
+      numeroserie:req.body.numeroserie,
+      imagem:req.body.imagem
     }).then(() => {
       req.flash('success_msg','Equipamento incluído com sucesso!')
       res.redirect('/equipamentoroutes')
-    }).catch((erro) => {
+    }).catch((err) => {
       req.flash('erros_msg','Não foi possível incluir o equipamento!')
-      console.log(erro)
+      console.log(err)
       res.redirect('/equipamentoroutes')
     })
   }
@@ -52,6 +69,18 @@ router.post('/alterarroute',(req,res) => {
   var erros = []
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
     erros.push({texto:'Nome inválido!'})
+  }
+  if (!req.body.descricao || typeof req.body.descricao == undefined || req.body.descricao == null) {
+    erros.push({texto:'Descricao inválida!'})
+  }
+  if (!req.body.codigo || typeof req.body.codigo == undefined || req.body.codigo == null) {
+    erros.push({texto:'Código inválido!'})
+  }
+  if (!req.body.numeroserie || typeof req.body.numeroserie == undefined || req.body.numeroserie == null) {
+    erros.push({texto:'Numero de série inválido!'})
+  }
+  if (!req.body.imagem || typeof req.body.imagem == undefined || req.body.imagem == null) {
+    erros.push({texto:'Imagem inválida!'})
   }
   if (erros.length > 0) {
     res.render('equipamentoviews/alteracaoview',{erros:erros})
