@@ -6,18 +6,10 @@ const Usuario = db.sequelize.define('usuario',{
     type:db.Sequelize.STRING,
     require:true
   },
-  email:{
-    type:db.Sequelize.STRING,
-    require:true
-  },
   senha:{
     type:db.Sequelize.STRING,
     require:true
   },
-  telefone:{
-    type:db.Sequelize.STRING,
-    require:true
-  }
 })
 //-------------------------------------------------------------------------------------------------
 Usuario.sync().then(() => {

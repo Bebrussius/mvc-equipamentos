@@ -2,8 +2,9 @@
 const express = require('express')
 const router = express.Router()
 const Equipamento = require('../models/equipamentomodel')
+const {isAuthenticaded} = require("../helpers/isAuthenticated")
 //-------------------------------------------------------------------------------------------------
-router.get('/',(req,res) => {
+router.get('/',isAuthenticaded,(req,res) => {
   Equipamento.findAll().then((equipamentos) => {
     res.render('equipamentoviews/gerenciaview',{equipamentos:equipamentos})
   }).catch((erro) => {
@@ -13,11 +14,11 @@ router.get('/',(req,res) => {
   })
 })
 //-------------------------------------------------------------------------------------------------
-router.get('/exibirinclusaoroute',(req,res) => {
+router.get('/exibirinclusaoroute',isAuthenticaded,(req,res) => {
   res.render('equipamentoviews/inclusaoview')
 })
 //-------------------------------------------------------------------------------------------------
-router.post('/incluirroute',(req,res) => {
+router.post('/incluirroute',isAuthenticaded,(req,res) => {
   var erros = []
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
     erros.push({texto:'Nome inválido!'})
@@ -34,7 +35,6 @@ router.post('/incluirroute',(req,res) => {
   if (!req.body.imagem || typeof req.body.imagem == undefined || req.body.imagem == null) {
     erros.push({texto:'Imagem inválida!'})
   }
-  console.log("lknlknlknlkn")
   if (erros.length > 0) {
     res.render('equipamentoviews/inclusaoview',{erros:erros})
   } else {
@@ -55,7 +55,7 @@ router.post('/incluirroute',(req,res) => {
   }
 })
 //-------------------------------------------------------------------------------------------------
-router.get('/alteracaoroute/:id',(req,res) => {
+router.get('/alteracaoroute/:id',isAuthenticaded,(req,res) => {
   Equipamento.findOne({where:{id:req.params.id}}).then((equipamento) => {    
     res.render('equipamentoviews/alteracaoview',{equipamento:equipamento})
   }).catch((err) => {
@@ -65,7 +65,7 @@ router.get('/alteracaoroute/:id',(req,res) => {
   })
 })
 //-------------------------------------------------------------------------------------------------
-router.post('/alterarroute',(req,res) => {
+router.post('/alterarroute',isAuthenticaded,(req,res) => {
   var erros = []
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
     erros.push({texto:'Nome inválido!'})
@@ -103,7 +103,7 @@ router.post('/alterarroute',(req,res) => {
   }
 })
 //-------------------------------------------------------------------------------------------------
-router.post('/excluirroute',(req,res) => {
+router.post('/excluirroute',isAuthenticaded,(req,res) => {
   Equipamento.destroy({where:{id:req.body.id}}).then(() => {
     req.flash('success_msg','Equipamento excluído com sucesso!')
     res.redirect('/equipamentoroutes')
