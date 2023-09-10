@@ -13,7 +13,18 @@ const passport = require('passport')
 const router = require('./controllers/usuariocontroller')
 const app = express()
 require("./config/auth")(passport)
-
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, 'public', 'uploads'),
+  filename: (req, file, cb)=>{
+    const extrairNome = path.extname(file.originalname);
+    const filename = `${Date.now()}${extrairNome}`;
+    cb(null, filename);
+  }
+});
+const upload = multer({
+  storage: storage
+});
 // }}}
 //-------------------------------------------------------------------------------------------------
 // Sessão
