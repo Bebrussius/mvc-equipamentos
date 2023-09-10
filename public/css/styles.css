@@ -2,3 +2,35 @@
     display: flex;
     justify-content: space-between;
 }
+
+.body-main{
+    background-color: #4D565E;
+}
+
+#card-login{
+    background-color: #343A40;
+    height: 50vh;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+}
+
+#card-login label{
+    color: white;
+}
+
+#card-login h1{
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+#card-login button{
+    width: 100%;
+    background-color: #8898A8;
+    color: white;
+    border: 1px solid #8898A8;
+    margin-top: 5vh;
+}

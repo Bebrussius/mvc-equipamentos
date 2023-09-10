@@ -5,6 +5,6 @@ module.exports = {
         }
 
         req.flash("error_msg", "Você deve estar logado para usar o sistema!")
-        res.redirect("/login")
+        res.redirect("/")
     }
 }

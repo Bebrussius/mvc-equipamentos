@@ -1,8 +1,8 @@
 {{#each erros}}
-  <div class="alert alert-danger">{{texto}}</div>
+  <div>{{texto}}</div>
 {{/each}}
-<h3>Inclusão de usuário</h3>
-<div class="card">
+<div class="card" id="card-login">
+  <h1>CADASTRO</h1>
   <div class="card-body">
     <form action="/usuarioroutes/incluirroute" method="POST">
       <label for="nome">Nome:</label>
@@ -11,7 +11,8 @@
       <label for="nome">Senha:</label>
         <input type="text" id="senha" name="senha" placeholder="Senha do usuário" class="form-control">
         <br>
-      <button type="submit" class="btn btn-success">Incluir usuário</button>
+      <button type="submit" class="btn btn-success">Cadastrar-se</button>
     </form>
   </div>
 </div>
+
